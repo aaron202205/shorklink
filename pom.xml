@@ -7,6 +7,12 @@
     <groupId>top.dooc</groupId>
     <artifactId>shorklink</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>admin</module>
+        <module>gateway</module>
+        <module>project</module>
+    </modules>
 
     <properties>
         <spring-boot.version>3.0.7</spring-boot.version>
