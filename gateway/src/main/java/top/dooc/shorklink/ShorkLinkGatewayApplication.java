@@ -1,4 +1,4 @@
-package top.dooc.shorklink.gateway;
+package top.dooc.shorklink;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

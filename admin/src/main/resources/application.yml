@@ -1,2 +1,15 @@
-erver:
+server:
   port: 8002
+
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/link?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-test-query: select 1 #通过选择一个常量值来检查数据库连接是否活动
+      connection-timeout: 20000
+      idle-timeout: 300000
+      maximum-pool-size: 5 #池中最大连接数（包括空闲和正在使用的连接）
+      minimum-idle: 5 # 池中最小空闲连接数量
