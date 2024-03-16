@@ -1,17 +1,15 @@
 package top.dooc.shorklink.dto.response;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import top.dooc.shorklink.common.serialize.PhoneDesensitizationSerializer;
 
 /**
  * @author aaronchen
- * @date 2024/3/15 下午4:15
+ * @date 2024/3/16 下午2:44
  */
 @Data
-public class UserRespDTO {
+public class UserActualRespDTO {
     /**
-     *
+     * id
      */
     private Long id;
 
@@ -26,9 +24,8 @@ public class UserRespDTO {
     private String realName;
 
     /**
-     * 手机号 (脱敏)
+     * 手机号, 无脱敏
      */
-    @JsonSerialize(using = PhoneDesensitizationSerializer.class)
     private String phone;
 
     /**
