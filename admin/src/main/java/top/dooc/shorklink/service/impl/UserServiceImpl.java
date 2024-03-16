@@ -1,6 +1,7 @@
 package top.dooc.shorklink.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.redisson.api.RBloomFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ import top.dooc.shorklink.service.UserService;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RBloomFilter<String> userRegisterCachePenetrationBloomFilter;
     @Override
     public UserRespDTO getUserByUsername(String username) {
         // 1. 构建条件构造器
@@ -34,5 +37,18 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(user, userRespDTO);
 
         return userRespDTO;
+    }
+
+    @Override
+    public Boolean hasUserName(String username) {
+         return userRegisterCachePenetrationBloomFilter.contains(username);
+//        QueryWrapper<UserDO> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("username", username);
+//        UserDO user  = userMapper.selectOne(queryWrapper);
+//        if(user==null)
+//        {
+//            return false;
+//        }
+//        return true;
     }
 }

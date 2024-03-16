@@ -13,3 +13,9 @@ spring:
       idle-timeout: 300000
       maximum-pool-size: 5 #池中最大连接数（包括空闲和正在使用的连接）
       minimum-idle: 5 # 池中最小空闲连接数量
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 123456
+      database: 1

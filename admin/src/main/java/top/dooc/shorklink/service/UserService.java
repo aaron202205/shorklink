@@ -13,4 +13,6 @@ public interface UserService {
      * @return
      */
     UserRespDTO getUserByUsername(String username);
+
+    Boolean hasUserName(String username);
 }
