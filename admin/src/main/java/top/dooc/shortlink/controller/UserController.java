@@ -2,12 +2,10 @@ package top.dooc.shortlink.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.dooc.shortlink.common.convention.result.Result;
 import top.dooc.shortlink.common.convention.result.Results;
+import top.dooc.shortlink.dto.request.UserRegisterReqDTO;
 import top.dooc.shortlink.dto.response.UserActualRespDTO;
 import top.dooc.shortlink.dto.response.UserRespDTO;
 import top.dooc.shortlink.service.UserService;
@@ -55,5 +53,10 @@ public class UserController {
     public Result<Boolean> hasUserName(@RequestParam String username){
         return Results.success(userService.hasUserName(username));
     }
-}
 
+    @PostMapping("/api/short-link/admin/v1/user/")
+    public Result<Void> register(@RequestBody UserRegisterReqDTO userRegisterReqDTO){
+        userService.register(userRegisterReqDTO);
+        return Results.success();
+    }
+}

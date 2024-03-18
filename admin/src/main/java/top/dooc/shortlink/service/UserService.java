@@ -1,5 +1,6 @@
 package top.dooc.shortlink.service;
 
+import top.dooc.shortlink.dto.request.UserRegisterReqDTO;
 import top.dooc.shortlink.dto.response.UserRespDTO;
 
 /**
@@ -15,4 +16,6 @@ public interface UserService {
     UserRespDTO getUserByUsername(String username);
 
     Boolean hasUserName(String username);
+
+    void register(UserRegisterReqDTO requestParam);
 }
