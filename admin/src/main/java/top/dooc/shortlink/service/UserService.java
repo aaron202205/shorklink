@@ -24,4 +24,5 @@ public interface UserService {
     void update(UserUpdateReqDTO requestParam);
     UserLoginRespDTO login(UserLoginReqDTO requestParam);
     Boolean checkLogin(String username, String token);
+    void logout(String username, String token);
 }

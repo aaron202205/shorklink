@@ -131,4 +131,14 @@ public class UserServiceImpl implements UserService {
     public Boolean checkLogin(String username, String token) {
         return stringRedisTemplate.opsForHash().get("login_" + username, token) != null;
     }
+
+    @Override
+    public void logout(String username, String token) {
+        // 判断是否已登录
+        if(checkLogin(username, token)){
+            stringRedisTemplate.delete("login_" + username);
+            return;
+        }
+        throw new ClientException(USER_LOGIN_ERROR);
+    }
 }
