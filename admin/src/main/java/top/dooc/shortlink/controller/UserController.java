@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import top.dooc.shortlink.common.convention.result.Result;
 import top.dooc.shortlink.common.convention.result.Results;
 import top.dooc.shortlink.dto.request.UserRegisterReqDTO;
+import top.dooc.shortlink.dto.request.UserUpdateReqDTO;
 import top.dooc.shortlink.dto.response.UserActualRespDTO;
 import top.dooc.shortlink.dto.response.UserRespDTO;
 import top.dooc.shortlink.service.UserService;
@@ -57,6 +58,16 @@ public class UserController {
     @PostMapping("/api/short-link/admin/v1/user/")
     public Result<Void> register(@RequestBody UserRegisterReqDTO userRegisterReqDTO){
         userService.register(userRegisterReqDTO);
+        return Results.success();
+    }
+    /**
+     * 根据用户名修改用户信息
+     * @param requestParam 传递参数
+     * @return void
+     */
+    @PutMapping("/api/short-link/admin/v1/user/")
+    public Result<Void> update(@RequestBody UserUpdateReqDTO requestParam){
+        userService.update(requestParam);
         return Results.success();
     }
 }

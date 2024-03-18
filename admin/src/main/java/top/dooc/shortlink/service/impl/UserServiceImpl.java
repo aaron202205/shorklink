@@ -1,7 +1,9 @@
 package top.dooc.shortlink.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -14,6 +16,7 @@ import top.dooc.shortlink.common.enums.UserErrorCodeEnums;
 import top.dooc.shortlink.dao.entity.UserDO;
 import top.dooc.shortlink.dao.mapper.UserMapper;
 import top.dooc.shortlink.dto.request.UserRegisterReqDTO;
+import top.dooc.shortlink.dto.request.UserUpdateReqDTO;
 import top.dooc.shortlink.dto.response.UserRespDTO;
 import top.dooc.shortlink.service.UserService;
 
@@ -86,5 +89,13 @@ public class UserServiceImpl implements UserService {
         finally {
             lock.unlock();
         }
+    }
+
+    @Override
+    public void update(UserUpdateReqDTO requestParam) {
+        // TODO 验证当前用户是否为登录用户
+        LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery(UserDO.class).
+                eq(UserDO::getUsername, requestParam.getUsername());
+        userMapper.update(BeanUtil.toBean(requestParam, UserDO.class), queryWrapper);
     }
 }
