@@ -12,7 +12,7 @@ import java.util.Date;
  * @date 2024/3/15 下午4:42
  */
 @Data
-@TableName("t_user_15")
+@TableName("t_user")
 public class UserDO {
     /**
      * id
