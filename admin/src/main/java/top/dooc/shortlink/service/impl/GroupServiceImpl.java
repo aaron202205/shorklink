@@ -1,13 +1,17 @@
 package top.dooc.shortlink.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.dooc.shortlink.dao.entity.GroupDO;
 import top.dooc.shortlink.dao.mapper.GroupMapper;
+import top.dooc.shortlink.dto.response.ShortLinkGroupRespDTO;
 import top.dooc.shortlink.service.GroupService;
 import top.dooc.shortlink.toolkit.RandomGenerator;
+
+import java.util.List;
 
 /**
  * @author aaronchen
@@ -23,7 +27,6 @@ public class GroupServiceImpl implements GroupService {
         do {
             gid = RandomGenerator.generateRandom();
         } while (hasGid(gid));
-
         GroupDO groupDO = GroupDO.builder()
                 .name(groupName)
                 .sortOrder(0)
@@ -32,6 +35,22 @@ public class GroupServiceImpl implements GroupService {
 
         groupMapper.insert(groupDO);
     }
+
+    /**
+     * 查询短链接分组
+     * @return 短链接分组
+     */
+    @Override
+    public List<ShortLinkGroupRespDTO> lisGroup() {
+        LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
+                .eq(GroupDO::getDelFlag, 0)
+                // TODO 用户名
+                .eq(GroupDO::getUsername, null)
+                .orderByDesc(GroupDO::getSortOrder, GroupDO::getUpdateTime);
+        List<GroupDO> groupDOS = groupMapper.selectList(queryWrapper);
+        return BeanUtil.copyToList(groupDOS, ShortLinkGroupRespDTO.class);
+    }
+
     private boolean hasGid(String gid){
         LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
                 .eq(GroupDO::getGid, gid)
