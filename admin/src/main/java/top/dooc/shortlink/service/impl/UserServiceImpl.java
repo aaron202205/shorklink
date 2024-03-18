@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import top.dooc.shortlink.common.biz.user.UserContext;
 import top.dooc.shortlink.common.convention.exception.ClientException;
 import top.dooc.shortlink.common.convention.exception.ServiceException;
 import top.dooc.shortlink.common.enums.UserErrorCodeEnums;
@@ -103,6 +104,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UserUpdateReqDTO requestParam) {
         // TODO 验证当前用户是否为登录用户
+        String username = UserContext.getUsername();
+        if(!requestParam.getUsername().equals(username))
+        {
+            throw new ClientException(USER_NULL);
+        }
         LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery(UserDO.class).
                 eq(UserDO::getUsername, requestParam.getUsername());
         userMapper.update(BeanUtil.toBean(requestParam, UserDO.class), queryWrapper);

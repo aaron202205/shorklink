@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.dooc.shortlink.common.biz.user.UserContext;
 import top.dooc.shortlink.dao.entity.GroupDO;
 import top.dooc.shortlink.dao.mapper.GroupMapper;
 import top.dooc.shortlink.dto.response.ShortLinkGroupRespDTO;
@@ -44,8 +45,7 @@ public class GroupServiceImpl implements GroupService {
     public List<ShortLinkGroupRespDTO> lisGroup() {
         LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
                 .eq(GroupDO::getDelFlag, 0)
-                // TODO 用户名
-                .eq(GroupDO::getUsername, null)
+                .eq(GroupDO::getUsername, UserContext.getUsername())
                 .orderByDesc(GroupDO::getSortOrder, GroupDO::getUpdateTime);
         List<GroupDO> groupDOS = groupMapper.selectList(queryWrapper);
         return BeanUtil.copyToList(groupDOS, ShortLinkGroupRespDTO.class);
@@ -54,8 +54,7 @@ public class GroupServiceImpl implements GroupService {
     private boolean hasGid(String gid){
         LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
                 .eq(GroupDO::getGid, gid)
-                // TODO 检测登陆状态，设置用户名
-                .eq(GroupDO::getName, null);
+                .eq(GroupDO::getName, UserContext.getUsername());
         return groupMapper.selectOne(queryWrapper) != null;
     }
 }

@@ -2,6 +2,7 @@ package top.dooc.shortlink.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import top.dooc.shortlink.common.database.BaseDO;
 
 /**
  * @author aaronchen
@@ -9,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @TableName("t_user")
-public class UserDO {
+public class UserDO extends BaseDO {
     /**
      * id
      */
