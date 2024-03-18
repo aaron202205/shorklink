@@ -1,7 +1,10 @@
 package top.dooc.shortlink.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import top.dooc.shortlink.common.database.BaseDO;
 
 /**
@@ -9,7 +12,10 @@ import top.dooc.shortlink.common.database.BaseDO;
  * @date 2024/3/18 下午9:51
  */
 @Data
-@TableName("t_group")
+@TableName("t_group_15")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class GroupDO extends BaseDO {
     /**
      * id
