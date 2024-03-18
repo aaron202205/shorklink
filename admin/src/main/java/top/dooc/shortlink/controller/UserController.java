@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.dooc.shortlink.common.convention.result.Result;
 import top.dooc.shortlink.common.convention.result.Results;
+import top.dooc.shortlink.dto.request.UserLoginReqDTO;
 import top.dooc.shortlink.dto.request.UserRegisterReqDTO;
 import top.dooc.shortlink.dto.request.UserUpdateReqDTO;
 import top.dooc.shortlink.dto.response.UserActualRespDTO;
+import top.dooc.shortlink.dto.response.UserLoginRespDTO;
 import top.dooc.shortlink.dto.response.UserRespDTO;
 import top.dooc.shortlink.service.UserService;
 
@@ -69,5 +71,24 @@ public class UserController {
     public Result<Void> update(@RequestBody UserUpdateReqDTO requestParam){
         userService.update(requestParam);
         return Results.success();
+    }
+    /**
+     * 用户登录
+     * @param requestParam 用户登录请求参数
+     * @return token
+     */
+    @PostMapping("/api/short-link/admin/v1/user/login")
+    public Result<UserLoginRespDTO> login(@RequestBody UserLoginReqDTO requestParam){
+        return Results.success(userService.login(requestParam));
+    }
+
+    /**
+     * 检查用户是否登录
+     * @param token 用户token
+     * @return boolean
+     */
+    @GetMapping("/api/short-link/admin/v1/user/check-login")
+    public Result<Boolean> checkLogin(@RequestParam("username") String username, @RequestParam("token") String token){
+        return Results.success(userService.checkLogin(username, token));
     }
 }

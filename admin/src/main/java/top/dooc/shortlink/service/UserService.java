@@ -1,7 +1,9 @@
 package top.dooc.shortlink.service;
 
+import top.dooc.shortlink.dto.request.UserLoginReqDTO;
 import top.dooc.shortlink.dto.request.UserRegisterReqDTO;
 import top.dooc.shortlink.dto.request.UserUpdateReqDTO;
+import top.dooc.shortlink.dto.response.UserLoginRespDTO;
 import top.dooc.shortlink.dto.response.UserRespDTO;
 
 /**
@@ -20,4 +22,6 @@ public interface UserService {
 
     void register(UserRegisterReqDTO requestParam);
     void update(UserUpdateReqDTO requestParam);
+    UserLoginRespDTO login(UserLoginReqDTO requestParam);
+    Boolean checkLogin(String username, String token);
 }
