@@ -18,4 +18,6 @@ public interface GroupService {
     List<ShortLinkGroupRespDTO> lisGroup();
 
     void updateGroup(ShortLinkGroupUpdateReqDTO reqDTO);
+
+    void deleteGroup(String gid);
 }
