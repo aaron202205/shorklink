@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import top.dooc.shortlink.common.biz.user.UserContext;
 import top.dooc.shortlink.dao.entity.GroupDO;
 import top.dooc.shortlink.dao.mapper.GroupMapper;
+import top.dooc.shortlink.dto.request.ShortLinkGroupUpdateReqDTO;
 import top.dooc.shortlink.dto.response.ShortLinkGroupRespDTO;
 import top.dooc.shortlink.service.GroupService;
 import top.dooc.shortlink.toolkit.RandomGenerator;
@@ -49,6 +50,17 @@ public class GroupServiceImpl implements GroupService {
                 .orderByDesc(GroupDO::getSortOrder, GroupDO::getUpdateTime);
         List<GroupDO> groupDOS = groupMapper.selectList(queryWrapper);
         return BeanUtil.copyToList(groupDOS, ShortLinkGroupRespDTO.class);
+    }
+
+    @Override
+    public void updateGroup(ShortLinkGroupUpdateReqDTO reqDTO) {
+        LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
+                .eq(GroupDO::getDelFlag, 0)
+                .eq(GroupDO::getUsername, UserContext.getUsername())
+                .eq(GroupDO::getGid, reqDTO.getGid());
+        GroupDO groupDO = new GroupDO();
+        groupDO.setName(reqDTO.getName());
+        groupMapper.update(groupDO, queryWrapper);
     }
 
     private boolean hasGid(String gid){

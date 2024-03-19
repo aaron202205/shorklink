@@ -1,5 +1,6 @@
 package top.dooc.shortlink.service;
 
+import top.dooc.shortlink.dto.request.ShortLinkGroupUpdateReqDTO;
 import top.dooc.shortlink.dto.response.ShortLinkGroupRespDTO;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface GroupService {
      * @return 短链接分组
      */
     List<ShortLinkGroupRespDTO> lisGroup();
+
+    void updateGroup(ShortLinkGroupUpdateReqDTO reqDTO);
 }
