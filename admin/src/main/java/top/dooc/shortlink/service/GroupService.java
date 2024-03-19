@@ -1,6 +1,7 @@
 package top.dooc.shortlink.service;
 
 import top.dooc.shortlink.dto.request.ShortLinkGroupUpdateReqDTO;
+import top.dooc.shortlink.dto.request.ShortLinkGroupUpdateSortReqDTO;
 import top.dooc.shortlink.dto.response.ShortLinkGroupRespDTO;
 
 import java.util.List;
@@ -20,4 +21,5 @@ public interface GroupService {
     void updateGroup(ShortLinkGroupUpdateReqDTO reqDTO);
 
     void deleteGroup(String gid);
+    void updateGroupSort(List<ShortLinkGroupUpdateSortReqDTO> requestParam);
 }

@@ -9,6 +9,7 @@ import top.dooc.shortlink.common.biz.user.UserContext;
 import top.dooc.shortlink.dao.entity.GroupDO;
 import top.dooc.shortlink.dao.mapper.GroupMapper;
 import top.dooc.shortlink.dto.request.ShortLinkGroupUpdateReqDTO;
+import top.dooc.shortlink.dto.request.ShortLinkGroupUpdateSortReqDTO;
 import top.dooc.shortlink.dto.response.ShortLinkGroupRespDTO;
 import top.dooc.shortlink.service.GroupService;
 import top.dooc.shortlink.toolkit.RandomGenerator;
@@ -72,6 +73,20 @@ public class GroupServiceImpl implements GroupService {
         GroupDO groupDO = new GroupDO();
         groupDO.setDelFlag(1);
         groupMapper.update(groupDO, queryWrapper);
+    }
+
+    @Override
+    public void updateGroupSort(List<ShortLinkGroupUpdateSortReqDTO> requestParam) {
+        requestParam.forEach(reqDTO -> {
+            GroupDO groupDO = GroupDO.builder()
+                    .sortOrder(reqDTO.getSortOrder())
+                    .build();
+            LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class);
+            queryWrapper.eq(GroupDO::getGid, reqDTO.getGid())
+                    .eq(GroupDO::getUsername, UserContext.getUsername())
+                    .eq(GroupDO::getDelFlag, 0);
+            groupMapper.update(groupDO, queryWrapper);
+        });
     }
 
     private boolean hasGid(String gid){

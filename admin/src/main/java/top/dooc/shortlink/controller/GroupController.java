@@ -6,6 +6,7 @@ import top.dooc.shortlink.common.convention.result.Result;
 import top.dooc.shortlink.common.convention.result.Results;
 import top.dooc.shortlink.dto.request.ShortLinkGroupSaveReqDTO;
 import top.dooc.shortlink.dto.request.ShortLinkGroupUpdateReqDTO;
+import top.dooc.shortlink.dto.request.ShortLinkGroupUpdateSortReqDTO;
 import top.dooc.shortlink.dto.response.ShortLinkGroupRespDTO;
 import top.dooc.shortlink.service.GroupService;
 
@@ -60,6 +61,16 @@ public class GroupController {
     @DeleteMapping("/api/short-link/admin/v1/group")
     public Result<Void> deleteGroup(@RequestParam String gid){
         groupService.deleteGroup(gid);
+        return Results.success();
+    }
+    /**
+     * 修改短链接分组排序
+     * @param requestParam
+     * @return
+     */
+    @PutMapping("/api/short-link/admin/v1/group/sort")
+    public Result<Void> updateGroupSort(@RequestBody List<ShortLinkGroupUpdateSortReqDTO> requestParam){
+        groupService.updateGroupSort(requestParam);
         return Results.success();
     }
 }
