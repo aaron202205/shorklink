@@ -14,7 +14,7 @@ import java.util.Date;
  * @author aaronchen
  * @date 2024/3/19 上午11:17
  */
-@TableName("t_link_15")
+@TableName("t_link")
 @Data
 @Builder
 @AllArgsConstructor
